@@ -5,10 +5,11 @@
 ;;; small major mode for editing scripts written in the execline language, made by skarnet.
 ;;; https://skarnet.org/software/execline
 
-;; Code
-(setq execline-keywords
-      (let* (
-             (process-state-control '("execline-cd" "execline-umask" "posix-cd" "posix-umask"
+;;; Code:
+(require 'font-lock)
+(eval-when-compile (require 'derived))
+(defvar execline-keywords
+      (let* ((process-state-control '("execline-cd" "execline-umask" "posix-cd" "posix-umask"
                                       "emptyenv" "envfile" "export" "fdblock" "fdclose" "fdmove"
                                       "fdreserve" "fdswap" "redirfd" "piperw" "heredoc" "wait"
                                       "getcwd" "getpid" "exec" "tryexec" "exit" "trap" "withstdinas"))
@@ -16,7 +17,7 @@
              (variable-management    '("define" "importas" "elglob" "elgetpositional" "multidefine" "multisubstitute"))
              (loops                  '("forx" "forstdin" "forbacktickx" "loopwhilex"))
              (positional-parameters  '("elgetopt" "shift" "dollarat"))
-             (misc                   '("eltest" "homeof")))
+             (misc                   '("eltest" "homeof"))
 
              ;; generate regexes for each category
              (process-state-control-regexp       (regexp-opt process-state-control  'words))
@@ -30,7 +31,7 @@
           (,variable-management-regexp     . 'font-lock-keyword-face)
           (,loops-regexp                   . 'font-lock-keyword-face)
           (,positional-parameters-regexp   . 'font-lock-keyword-face)
-          (,misc-regexp                    . 'font-lock-keyword-face)))
+          (,misc-regexp                    . 'font-lock-keyword-face))))
 
 
 (define-derived-mode execline-mode sh-mode "execline mode"
