@@ -28,7 +28,7 @@
                   ("eltest" "homeof"))))
 
 
-
+;;;###autoload
 (define-derived-mode execline-mode sh-mode
   "Major mode for editing execline scripts."
   (setq font-lock-defaults '((execline-keywords))))
